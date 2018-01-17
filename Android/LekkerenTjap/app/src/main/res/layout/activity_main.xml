@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.verbouw.bert.lekkerentjap.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.verbouw.bert.lekkerentjap.SquareLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/current_temperature_textview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="false"
+                        android:layout_centerInParent="false"
+                        android:layout_centerVertical="false"
+                        android:layout_marginBottom="25dp"
+                        android:layout_marginStart="25dp"
+                        app:autoSizeTextType="uniform"
+                        android:gravity="center"
+                        android:text="@string/_currenttempplaceholder"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display3" />
+                </RelativeLayout>
+
+                <pl.pawelkleczkowski.customgauge.CustomGauge
+                    android:id="@+id/gauge1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:layout_weight="1"
+                    android:fillViewport="false"
+                    android:padding="40dp"
+                    app:gaugeEndValue="100"
+                    app:gaugePointEndColor="@color/colorAccent"
+                    app:gaugePointSize="135"
+                    app:gaugePointStartColor="@color/colorAccent"
+                    app:gaugeStartAngle="135"
+                    app:gaugeStartValue="100"
+                    app:gaugeStrokeCap="FLAT"
+                    app:gaugeStrokeColor="@color/colorGaugeStroke"
+                    app:gaugeStrokeWidth="20dp"
+                    app:gaugeSweepAngle="270"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <pl.pawelkleczkowski.customgauge.CustomGauge
+                    android:id="@+id/gauge2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:layout_weight="1"
+                    android:fillViewport="false"
+                    android:padding="45dp"
+                    app:gaugeEndValue="100"
+                    app:gaugePointEndColor="@color/colorGaugeGoal"
+                    app:gaugePointSize="1"
+                    app:gaugePointStartColor="@color/colorGaugeGoal"
+                    app:gaugeStartAngle="135"
+                    app:gaugeStartValue="0"
+                    app:gaugeStrokeCap="FLAT"
+                    app:gaugeStrokeColor="@android:color/transparent"
+                    app:gaugeStrokeWidth="30dp"
+                    app:gaugeSweepAngle="270"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+        </com.verbouw.bert.lekkerentjap.SquareLinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-75dp"
+            android:gravity="top|center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/pwn_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:drawableStart="@drawable/ic_action_name"
+                android:drawableTint="@color/colorAccent"
+                android:gravity="center_horizontal"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="@string/_pwmplaceholder"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/goal_temperature_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="0"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                android:text="@string/_goaltempplaceholder"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">LekkerenTjap</string>
+    <string name="_currenttempplaceholder">50°</string>
+    <string name="_goaltempplaceholder">Target: 60°</string>
+    <string name="_pwmplaceholder">Pwm On</string>
+</resources>

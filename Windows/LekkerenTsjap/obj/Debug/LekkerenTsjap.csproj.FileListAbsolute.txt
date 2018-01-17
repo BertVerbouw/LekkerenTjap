@@ -1,0 +1,73 @@
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\bin\Debug\LekkerenTsjap.exe.config
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\bin\Debug\LekkerenTsjap.exe
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\bin\Debug\LekkerenTsjap.pdb
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\bin\Debug\LiveCharts.dll
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\bin\Debug\LiveCharts.Geared.dll
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\bin\Debug\LiveCharts.Wpf.dll
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\bin\Debug\MahApps.Metro.dll
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\bin\Debug\LiveCharts.pdb
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\bin\Debug\LiveCharts.xml
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\bin\Debug\LiveCharts.Wpf.pdb
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\bin\Debug\LiveCharts.Wpf.xml
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\bin\Debug\MahApps.Metro.pdb
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\bin\Debug\MahApps.Metro.xml
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\obj\Debug\LekkerenTsjap.csprojResolveAssemblyReference.cache
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\obj\Debug\MainWindow.g.cs
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\obj\Debug\App.g.cs
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\obj\Debug\LekkerenTsjap_MarkupCompile.cache
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\obj\Debug\LekkerenTsjap_MarkupCompile.lref
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\obj\Debug\App.baml
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\obj\Debug\ComaxStyle.baml
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\obj\Debug\MainWindow.baml
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\obj\Debug\LekkerenTsjap.g.resources
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\obj\Debug\LekkerenTsjap.Properties.Resources.resources
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\obj\Debug\LekkerenTsjap.csproj.GenerateResource.Cache
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\obj\Debug\LekkerenTsjap.exe
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\obj\Debug\LekkerenTsjap.pdb
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\bin\Debug\EPPlus.dll
+C:\Users\Bert\Documents\Visual Studio 2017\Projects\LekkerenTsjap\LekkerenTsjap\bin\Debug\EPPlus.xml
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\LekkerenTsjap.exe.config
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\LekkerenTsjap.exe
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\LekkerenTsjap.pdb
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\EPPlus.dll
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\MahApps.Metro.dll
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\MaterialDesignColors.dll
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\MaterialDesignThemes.MahApps.dll
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\EPPlus.xml
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\MahApps.Metro.pdb
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\MahApps.Metro.xml
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\obj\Debug\LekkerenTsjap.csprojResolveAssemblyReference.cache
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\obj\Debug\ComaxStyle.baml
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\obj\Debug\MainWindow.baml
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\obj\Debug\MainWindow.g.cs
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\obj\Debug\App.g.cs
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\obj\Debug\LekkerenTsjap_MarkupCompile.cache
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\obj\Debug\LekkerenTsjap_MarkupCompile.lref
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\obj\Debug\App.baml
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\obj\Debug\LekkerenTsjap.g.resources
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\obj\Debug\LekkerenTsjap.Properties.Resources.resources
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\obj\Debug\LekkerenTsjap.csproj.GenerateResource.Cache
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\obj\Debug\LekkerenTsjap.csproj.CoreCompileInputs.cache
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\obj\Debug\LekkerenTsjap.exe
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\obj\Debug\LekkerenTsjap.pdb
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\Microsoft.Expression.Drawing.dll
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\de\Microsoft.Expression.Drawing.resources.dll
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\es\Microsoft.Expression.Drawing.resources.dll
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\fr\Microsoft.Expression.Drawing.resources.dll
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\it\Microsoft.Expression.Drawing.resources.dll
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\ja\Microsoft.Expression.Drawing.resources.dll
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\ko\Microsoft.Expression.Drawing.resources.dll
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\ru\Microsoft.Expression.Drawing.resources.dll
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\zh-Hans\Microsoft.Expression.Drawing.resources.dll
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\zh-Hant\Microsoft.Expression.Drawing.resources.dll
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\obj\Debug\Properties\DesignTimeResources.baml
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\TextOnAPath.dll
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\bin\Debug\TextOnAPath.pdb
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\obj\Debug\Resources\Icons.baml
+C:\Users\Bert\Documents\Development\LekkerenTsjap\LekkerenTsjap\obj\Debug\Resources\IconsNonShared.baml
