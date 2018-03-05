@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LekkerenTsjap", "LekkerenTsjap\LekkerenTsjap.csproj", "{2E014B47-805F-4D29-B9FB-98ADBF7C8E74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextOnAPath", "..\TextOnAPathTestApplication\TextOnAPath\TextOnAPath.csproj", "{2642F907-F1E9-450E-8CBD-347F3199A77A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextOnAPath", "..\..\TextOnAPathTestApplication\TextOnAPath\TextOnAPath.csproj", "{2642F907-F1E9-450E-8CBD-347F3199A77A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -149,16 +149,16 @@
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\TextOnAPathTestApplication\TextOnAPath\TextOnAPath.csproj">
-      <Project>{2642f907-f1e9-450e-8cbd-347f3199a77a}</Project>
-      <Name>TextOnAPath</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\WindowsIcons-license.txt" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Entypo-license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\TextOnAPathTestApplication\TextOnAPath\TextOnAPath.csproj">
+      <Project>{2642f907-f1e9-450e-8cbd-347f3199a77a}</Project>
+      <Name>TextOnAPath</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.1.29.3\build\dotnet\Fody.targets" Condition="Exists('..\packages\Fody.1.29.3\build\dotnet\Fody.targets')" />

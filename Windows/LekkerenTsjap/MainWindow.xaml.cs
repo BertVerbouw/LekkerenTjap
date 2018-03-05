@@ -34,9 +34,12 @@ namespace LekkerenTsjap
         private BackgroundWorker _recordingWorker = new BackgroundWorker();
         private bool _record = false;
         private bool _pwmOn = false;
-        private bool _arduinoFound = false;
+        private bool _arduinoError = false;
+        private bool _setTimestamp = false;
+        private bool _saveEnabled = false;
         private string _recordText = "Start Recording";
         private TimeSpan _recordingTime = new TimeSpan();
+        private long _dataPoints = 0;
 
         private Geometry _geometry;
 
@@ -68,6 +71,7 @@ namespace LekkerenTsjap
             while (!_recordingWorker.CancellationPending)
             {
                 RecordingTime = DateTime.Now - startTime;
+                Thread.Sleep(50);
             }
         }
 
@@ -76,6 +80,7 @@ namespace LekkerenTsjap
             while (!_readWorker.CancellationPending)
             {
                 Read();
+                Thread.Sleep(50);
             }
         }
 
@@ -116,7 +121,11 @@ namespace LekkerenTsjap
 
         public bool PwmOn { get => _pwmOn; set { _pwmOn = value; OnPropertyChanged("PwmOn"); } }
 
-        public bool ArduinoFound { get => _arduinoFound; set { _arduinoFound = value; OnPropertyChanged("ArduinoFound"); } }
+        public bool ArduinoError { get => _arduinoError; set { _arduinoError = value; OnPropertyChanged("ArduinoError"); } }
+
+        public long DataPoints { get => _dataPoints; set { _dataPoints = value; OnPropertyChanged("DataPoints"); } }
+
+        public bool SaveEnabled { get => _saveEnabled; set { _saveEnabled = value; OnPropertyChanged("SaveEnabled"); } }
 
         private void Read()
         {
@@ -127,23 +136,28 @@ namespace LekkerenTsjap
                 Temperature = Math.Round(double.Parse(info[0], CultureInfo.InvariantCulture));
                 Goal = Math.Round(double.Parse(info[1], CultureInfo.InvariantCulture));
                 PwmOn = bool.Parse(info[2]);
-                Thread.Sleep(100);
                 if (Record)
                 {
                     Values.Add(new MeasureModel
                     {
                         DateTime = now,
-                        Value = Temperature
+                        Value = Temperature,
+                        Timestamp = _setTimestamp ? (double?)Temperature : (double?)null
                     });
                     GoalValues.Add(new MeasureModel
                     {
                         DateTime = now,
-                        Value = Goal
+                        Value = Goal,
+                        Timestamp = _setTimestamp ? (double?)Temperature : (double?)null
                     });
+                    _setTimestamp = false;
+                    DataPoints++;
                 }
+                ArduinoError = false;
             }
             catch
             {
+                ArduinoError = true;
             }
         }
 
@@ -159,12 +173,13 @@ namespace LekkerenTsjap
 
         #endregion INotifyPropertyChanged implementation
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ToggleRecording(object sender, RoutedEventArgs e)
         {
             if (!Record)
             {
+                SaveEnabled = true;
                 Record = true;
-                RecordText = "Stop Recording";
+                RecordText = "Pause Recording";
                 startTime = DateTime.Now;
                 _recordingWorker.RunWorkerAsync();
             }
@@ -172,49 +187,80 @@ namespace LekkerenTsjap
             {
                 _recordingWorker.CancelAsync();
                 Record = false;
-                RecordText = "Start Recording";
-                _readWorker.CancelAsync();
-                SaveFileDialog dialog = new SaveFileDialog();
-                dialog.AddExtension = true;
-                dialog.DefaultExt = "xlsx";
-                dialog.Filter = "Excel Files (*.xlsx)|*.xlsx";
-                dialog.FileName = "Brouwdata van " + DateTime.Now.ToString("dd-MM-yyyy") + ".xlsx";
-                if (dialog.ShowDialog() == true)
-                {
-                    GenerateXlsx(dialog.FileName);
-                }
+                RecordText = "Continue Recording";
+            }
+        }
+
+        private void SaveDataToXls()
+        {
+            SaveFileDialog dialog = new SaveFileDialog
+            {
+                AddExtension = true,
+                DefaultExt = "xlsx",
+                Filter = "Excel Files (*.xlsx)|*.xlsx",
+                FileName = "Brouwdata van " + DateTime.Now.ToString("dd-MM-yyyy") + ".xlsx"
+            };
+            if (dialog.ShowDialog() == true)
+            {
+                GenerateXlsx(dialog.FileName);
             }
         }
 
         private void GenerateXlsx(string fileName)
         {
-            if (File.Exists(fileName)) { File.Delete(fileName); }
-            var newFile = new FileInfo(fileName);
-            using (ExcelPackage xlPackage = new ExcelPackage(newFile))
+            if (Values.Count > 0)
             {
-                ExcelWorksheet worksheet = xlPackage.Workbook.Worksheets.Add("Data");
-                ExcelWorksheet graphworksheet = xlPackage.Workbook.Worksheets.Add("Graph");
-                worksheet.Cells.Clear();
-                worksheet.Cells["A1"].Value = "Tijd";
-                worksheet.Cells["B1"].Value = "Gemeten temperatuur";
-                worksheet.Cells["C1"].Value = "Te bereiken temperatuur";
-                for (int row = 0; row < Values.Count; row++)
+                if (File.Exists(fileName)) { File.Delete(fileName); }
+                var newFile = new FileInfo(fileName);
+                using (ExcelPackage xlPackage = new ExcelPackage(newFile))
                 {
-                    worksheet.Cells["A" + (row + 2)].Value = Values[row].DateTime.ToString("HH:mm:ss");
-                    worksheet.Cells["B" + (row + 2)].Value = Values[row].Value;
-                    worksheet.Cells["C" + (row + 2)].Value = GoalValues[row].Value;
+                    ExcelWorksheet worksheet = xlPackage.Workbook.Worksheets.Add("Data");
+                    ExcelWorksheet graphworksheet = xlPackage.Workbook.Worksheets.Add("Graph");
+                    worksheet.Cells.Clear();
+                    worksheet.Cells["A1"].Value = "Tijd";
+                    worksheet.Cells["B1"].Value = "Gemeten temperatuur";
+                    worksheet.Cells["C1"].Value = "Te bereiken temperatuur";
+                    worksheet.Cells["D1"].Value = "Timestamp";
+                    for (int row = 0; row < Values.Count; row++)
+                    {
+                        worksheet.Cells["A" + (row + 2)].Value = Values[row].DateTime.ToString("HH:mm:ss");
+                        worksheet.Cells["B" + (row + 2)].Value = Values[row].Value;
+                        worksheet.Cells["C" + (row + 2)].Value = GoalValues[row].Value;
+                        worksheet.Cells["D" + (row + 2)].Value = Values[row].Timestamp;
+                    }
+                    ExcelChart chart = graphworksheet.Drawings.AddChart("Brouwdata", eChartType.Line);
+                    chart.Title.Text = "Brouw Data " + DateTime.Now.ToString("dd-MM-yyyy");
+                    chart.SetPosition(0, 0, 0, 0);
+                    chart.SetSize(1400, 600);
+                    chart.DisplayBlanksAs = eDisplayBlanksAs.Gap;
+                    chart.Legend.Remove();
+                    var ser1 = chart.Series.Add(worksheet.Cells["B2:B" + (Values.Count + 1)], worksheet.Cells["A2:A" + (Values.Count + 1)]);
+                    var ser2 = chart.Series.Add(worksheet.Cells["C2:C" + (Values.Count + 1)], worksheet.Cells["A2:A" + (Values.Count + 1)]);
+
+                    var chartType2 = chart.PlotArea.ChartTypes.Add(eChartType.XYScatter);
+                    var ser3 = chartType2.Series.Add(worksheet.Cells["D2:D" + (Values.Count + 1)], worksheet.Cells["A2:A" + (Values.Count + 1)]);
+
+                    xlPackage.SaveAs(newFile);
                 }
-                ExcelChart chart = graphworksheet.Drawings.AddChart("Brouwdata", eChartType.LineStacked);
-                chart.Title.Text = "Brouw Data";
-                chart.SetPosition(0, 0, 0, 0);
-                chart.SetSize(1400, 600);
-                var ser1 = (ExcelChartSerie)(chart.Series.Add(worksheet.Cells["B2:B" + (Values.Count + 1)],
-                worksheet.Cells["A2:A" + (Values.Count + 1)]));
-                var ser2 = (ExcelChartSerie)(chart.Series.Add(worksheet.Cells["C2:C" + (Values.Count + 1)],
-                worksheet.Cells["A2:A" + (Values.Count + 1)]));
-                xlPackage.SaveAs(newFile);
+                Process.Start(fileName);
             }
-            Process.Start(fileName);
+        }
+
+        private void SetTimestamp(object sender, RoutedEventArgs e)
+        {
+            _setTimestamp = true;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            _readWorker.CancelAsync();
+            if (Record)
+            {
+                ToggleRecording(null, new RoutedEventArgs());
+            }
+            SaveDataToXls();
+            while (_readWorker.IsBusy) { }
+            _readWorker.RunWorkerAsync();
         }
     }
 
@@ -222,6 +268,7 @@ namespace LekkerenTsjap
     {
         public DateTime DateTime { get; set; }
         public double Value { get; set; }
+        public double? Timestamp { get; set; }
     }
 
     [ValueConversion(typeof(bool), typeof(bool))]

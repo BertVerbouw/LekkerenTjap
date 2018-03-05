@@ -27,6 +27,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'pl.pawelkleczkowski.customgauge:CustomGauge:1.0.3'
+    implementation 'com.android.support:cardview-v7:26.1.0'
 }
 repositories {
     jcenter()
