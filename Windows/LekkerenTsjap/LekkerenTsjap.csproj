@@ -155,7 +155,7 @@
     <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\TextOnAPathTestApplication\TextOnAPath\TextOnAPath.csproj">
+    <ProjectReference Include="..\..\TextOnAPath\TextOnAPath.csproj">
       <Project>{2642f907-f1e9-450e-8cbd-347f3199a77a}</Project>
       <Name>TextOnAPath</Name>
     </ProjectReference>

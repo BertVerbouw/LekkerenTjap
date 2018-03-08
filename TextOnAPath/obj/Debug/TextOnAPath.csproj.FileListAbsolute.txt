@@ -1,0 +1,39 @@
+C:\Users\Bert\Documents\Development\TextOnAPathTestApplication\TextOnAPath\obj\Debug\TextOnAPath.csprojResolveAssemblyReference.cache
+C:\Users\Bert\Documents\Development\TextOnAPathTestApplication\TextOnAPath\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Bert\Documents\Development\TextOnAPathTestApplication\TextOnAPath\obj\Debug\TextOnAPath_MarkupCompile.cache
+C:\Users\Bert\Documents\Development\TextOnAPathTestApplication\TextOnAPath\obj\Debug\TextOnAPath_MarkupCompile.lref
+C:\Users\Bert\Documents\Development\TextOnAPathTestApplication\TextOnAPath\obj\Debug\Themes\Generic.baml
+C:\Users\Bert\Documents\Development\TextOnAPathTestApplication\TextOnAPath\obj\Debug\TextOnAPath.g.resources
+C:\Users\Bert\Documents\Development\TextOnAPathTestApplication\TextOnAPath\obj\Debug\TextOnAPath.pdb
+C:\Users\Bert\Documents\Development\TextOnAPathTestApplication\TextOnAPath\bin\Debug\TextOnAPath.dll
+C:\Users\Bert\Documents\Development\TextOnAPathTestApplication\TextOnAPath\bin\Debug\TextOnAPath.pdb
+C:\Users\Bert\Documents\Development\TextOnAPathTestApplication\TextOnAPath\obj\Debug\TextOnAPath.Properties.Resources.resources
+C:\Users\Bert\Documents\Development\TextOnAPathTestApplication\TextOnAPath\obj\Debug\TextOnAPath.csproj.GenerateResource.Cache
+C:\Users\Bert\Documents\Development\TextOnAPathTestApplication\TextOnAPath\obj\Debug\TextOnAPath.csproj.CoreCompileInputs.cache
+C:\Users\Bert\Documents\Development\TextOnAPathTestApplication\TextOnAPath\obj\Debug\TextOnAPath.dll
+C:\Users\Bert Verbouw\Documents\Development\TextOnAPathTestApplication\TextOnAPath\bin\Debug\TextOnAPath.dll
+C:\Users\Bert Verbouw\Documents\Development\TextOnAPathTestApplication\TextOnAPath\bin\Debug\TextOnAPath.pdb
+C:\Users\Bert Verbouw\Documents\Development\TextOnAPathTestApplication\TextOnAPath\obj\Debug\TextOnAPath.csprojResolveAssemblyReference.cache
+C:\Users\Bert Verbouw\Documents\Development\TextOnAPathTestApplication\TextOnAPath\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Bert Verbouw\Documents\Development\TextOnAPathTestApplication\TextOnAPath\obj\Debug\TextOnAPath_MarkupCompile.cache
+C:\Users\Bert Verbouw\Documents\Development\TextOnAPathTestApplication\TextOnAPath\obj\Debug\TextOnAPath_MarkupCompile.lref
+C:\Users\Bert Verbouw\Documents\Development\TextOnAPathTestApplication\TextOnAPath\obj\Debug\Themes\Generic.baml
+C:\Users\Bert Verbouw\Documents\Development\TextOnAPathTestApplication\TextOnAPath\obj\Debug\TextOnAPath.g.resources
+C:\Users\Bert Verbouw\Documents\Development\TextOnAPathTestApplication\TextOnAPath\obj\Debug\TextOnAPath.Properties.Resources.resources
+C:\Users\Bert Verbouw\Documents\Development\TextOnAPathTestApplication\TextOnAPath\obj\Debug\TextOnAPath.csproj.GenerateResource.Cache
+C:\Users\Bert Verbouw\Documents\Development\TextOnAPathTestApplication\TextOnAPath\obj\Debug\TextOnAPath.dll
+C:\Users\Bert Verbouw\Documents\Development\TextOnAPathTestApplication\TextOnAPath\obj\Debug\TextOnAPath.pdb
+C:\Users\Bert Verbouw\Documents\Development\TextOnAPathTestApplication\TextOnAPath\obj\Debug\TextOnAPath.csproj.CoreCompileInputs.cache
+C:\Users\Bert Verbouw\Documents\Development\LekkerenTjap\LekkerenTjap\TextOnAPath\bin\Debug\TextOnAPath.dll
+C:\Users\Bert Verbouw\Documents\Development\LekkerenTjap\LekkerenTjap\TextOnAPath\bin\Debug\TextOnAPath.pdb
+C:\Users\Bert Verbouw\Documents\Development\LekkerenTjap\LekkerenTjap\TextOnAPath\obj\Debug\TextOnAPath.csprojResolveAssemblyReference.cache
+C:\Users\Bert Verbouw\Documents\Development\LekkerenTjap\LekkerenTjap\TextOnAPath\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Bert Verbouw\Documents\Development\LekkerenTjap\LekkerenTjap\TextOnAPath\obj\Debug\TextOnAPath_MarkupCompile.cache
+C:\Users\Bert Verbouw\Documents\Development\LekkerenTjap\LekkerenTjap\TextOnAPath\obj\Debug\TextOnAPath_MarkupCompile.lref
+C:\Users\Bert Verbouw\Documents\Development\LekkerenTjap\LekkerenTjap\TextOnAPath\obj\Debug\Themes\Generic.baml
+C:\Users\Bert Verbouw\Documents\Development\LekkerenTjap\LekkerenTjap\TextOnAPath\obj\Debug\TextOnAPath.g.resources
+C:\Users\Bert Verbouw\Documents\Development\LekkerenTjap\LekkerenTjap\TextOnAPath\obj\Debug\TextOnAPath.Properties.Resources.resources
+C:\Users\Bert Verbouw\Documents\Development\LekkerenTjap\LekkerenTjap\TextOnAPath\obj\Debug\TextOnAPath.csproj.GenerateResource.Cache
+C:\Users\Bert Verbouw\Documents\Development\LekkerenTjap\LekkerenTjap\TextOnAPath\obj\Debug\TextOnAPath.csproj.CoreCompileInputs.cache
+C:\Users\Bert Verbouw\Documents\Development\LekkerenTjap\LekkerenTjap\TextOnAPath\obj\Debug\TextOnAPath.dll
+C:\Users\Bert Verbouw\Documents\Development\LekkerenTjap\LekkerenTjap\TextOnAPath\obj\Debug\TextOnAPath.pdb
