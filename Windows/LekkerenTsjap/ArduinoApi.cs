@@ -7,8 +7,7 @@ namespace LekkerenTsjap
 {
     internal class ArduinoApi
     {
-        private static string baseUrl = "http://192.168.1.127";
-        //private static string baseUrl = "http://demo7423295.mockable.io/";
+        internal static string baseUrl = "";
 
         private static HttpClient client = new HttpClient();
 

@@ -21,6 +21,7 @@ namespace LekkerenTsjap
     /// </summary>
     public partial class MainWindow : MetroWindow, INotifyPropertyChanged
     {
+        private static string _serverFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "server");
         private DateTime startTime;
         private static List<MeasureModel> Values = new List<MeasureModel>();
         private static List<MeasureModel> GoalValues = new List<MeasureModel>();
@@ -38,8 +39,10 @@ namespace LekkerenTsjap
         private bool _setTimestamp = false;
         private bool _saveEnabled = false;
         private string _recordText = "Start Recording";
+        private string _serverAddress = "";
         private TimeSpan _recordingTime = new TimeSpan();
         private long _dataPoints = 0;
+        private bool _initializing = true;
 
         private Geometry _geometry;
 
@@ -57,6 +60,14 @@ namespace LekkerenTsjap
         public MainWindow()
         {
             InitializeComponent();
+            try
+            {
+                ServerAddress = File.ReadAllText(_serverFile);
+            }
+            catch
+            {
+                ArduinoError = true;
+            }
             DataContext = this;
             Geometry = this.Resources["PathGeometry"] as PathGeometry;
             _readWorker.DoWork += _readWorker_DoWork;
@@ -127,6 +138,10 @@ namespace LekkerenTsjap
 
         public bool SaveEnabled { get => _saveEnabled; set { _saveEnabled = value; OnPropertyChanged("SaveEnabled"); } }
 
+        public string ServerAddress { get => _serverAddress; set { _serverAddress = value; ArduinoApi.baseUrl = value; File.WriteAllText(_serverFile, value); Initializing = true; OnPropertyChanged("ServerAddress"); } }
+
+        public bool Initializing { get => _initializing; set { _initializing = value; OnPropertyChanged("Initializing"); } }
+
         private void Read()
         {
             try
@@ -159,6 +174,7 @@ namespace LekkerenTsjap
             {
                 ArduinoError = true;
             }
+            Initializing = false;
         }
 
         #region INotifyPropertyChanged implementation

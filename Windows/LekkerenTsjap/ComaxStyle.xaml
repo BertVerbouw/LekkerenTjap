@@ -4,8 +4,8 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="options">
 
-    <Color x:Key="PrimaryColor">#0071b9</Color>
-    <Color x:Key="AccentColor">#0071b9</Color>
+    <Color x:Key="PrimaryColor">#FFFFC400</Color>
+    <Color x:Key="AccentColor">#FFFFC400</Color>
     <Color x:Key="AccentColor2">#2686C4</Color>
     <Color x:Key="AccentColor3">#4D9CCE</Color>
     <Color x:Key="AccentColor4">#80B8DC</Color>

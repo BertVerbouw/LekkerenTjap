@@ -6,12 +6,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
+    xmlns:local="clr-namespace:LekkerenTsjap"
     xmlns:toap1="clr-namespace:TextOnAPath;assembly=TextOnAPath"
     mc:Ignorable="d"
         Title="Lekkeren Tjap" SizeToContent="WidthAndHeight" ShowMaxRestoreButton="False" ResizeMode="CanMinimize" TitleCharacterCasing="Normal" WindowTitleBrush="#00796B" WindowTransitionsEnabled="False">
-    <Window.Resources>
-        <!-- the geometries below are added to the combobox in code behind -->
-    </Window.Resources>
     <Grid Background="#00796B">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
@@ -20,14 +18,6 @@
         <Grid Grid.Row="0" Margin="15">
             <Label VerticalAlignment="Bottom" Margin="30,0,0,0" Foreground="#BFFFFFFF" FontSize="18">0°</Label>
             <Label VerticalAlignment="Bottom" Margin="0,0,30,0" HorizontalAlignment="Right" Foreground="#BFFFFFFF" FontSize="18">100°</Label>
-            <StackPanel Background="#00796B" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding ArduinoError, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Rectangle Height="20" Width="18" HorizontalAlignment="Left" Fill="#33FFFFFF">
-                    <Rectangle.OpacityMask>
-                        <VisualBrush Visual="{StaticResource appbar_network_port_disconnect}" Stretch="Fill" />
-                    </Rectangle.OpacityMask>
-                </Rectangle>
-                <Label Foreground="#59000000">No Data</Label>
-            </StackPanel>
         </Grid>
         <Grid Grid.Row="0" Margin="15,15,15,-60">
             <ed:Arc StartAngle="-120" EndAngle="120" Stretch="None"
@@ -82,6 +72,22 @@
                 </toap1:TextOnAPath.TextPath>
             </toap1:TextOnAPath>
         </Grid>
+        <Grid Visibility="{Binding ArduinoError, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Row="0" Background="#00796B">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Rectangle Height="40" Width="36" Fill="#ffc400">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Visual="{StaticResource appbar_network_port_disconnect}" Stretch="Fill" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+                <Label Foreground="#ffc400" FontSize="40" Margin="5,0,0,0">Connection Failed</Label>
+            </StackPanel>
+        </Grid>
+        <Grid Visibility="{Binding Initializing, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Row="0" Background="#00796B">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Controls:ProgressRing></Controls:ProgressRing>
+                <Label Foreground="#ffc400" FontSize="40" Margin="5,0,0,0">Testing Connection</Label>
+            </StackPanel>
+        </Grid>
         <DockPanel Grid.Row="1" Background="#004c40">
             <StackPanel Orientation="Horizontal" Margin="7,0,0,0" Visibility="{Binding SaveEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Button Style="{StaticResource BottomButton}" x:Name="timestampbtn" Padding="5,1" Click="SetTimestamp" ToolTip="Insert a timestamp">
@@ -103,6 +109,10 @@
                 <Button Click="Button_Click" Style="{StaticResource BottomButton}" Padding="10" Content="Save" FontSize="18" HorizontalAlignment="Right" Visibility="{Binding SaveEnabled, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 <Button Click="ToggleRecording" Style="{StaticResource BottomButton}" Padding="10" Content="{Binding RecordText, FallbackValue=Start Recording}" FontSize="18" HorizontalAlignment="Right" />
             </StackPanel>
+        </DockPanel>
+        <DockPanel Visibility="{Binding ArduinoError, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Row="1" Background="#004c40">
+            <Label Foreground="#BFFFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="16">Server address:</Label>
+            <TextBox local:FocusAdvancement.AdvancesByEnterKey="True" Margin="5" Foreground="White" BorderBrush="#BFFFFFFF" FontSize="14" Text="{Binding ServerAddress, FallbackValue=test}" VerticalAlignment="Center"></TextBox>
         </DockPanel>
     </Grid>
 </Controls:MetroWindow>
