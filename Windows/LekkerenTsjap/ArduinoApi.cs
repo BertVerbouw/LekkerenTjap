@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LekkerenTsjap.Entities;
+using System;
 using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -24,32 +25,20 @@ namespace LekkerenTsjap
             return await result.Result.Content.ReadAsStringAsync();
         }
 
-        internal static double GetCurrentTemp()
+        internal static ArduinoData GetCurrentData()
         {
             var result = SendGetRequest("/arduino/digital/current");
             result.Wait(500);
-            return double.Parse(result.Result, CultureInfo.InvariantCulture);
+            return new ArduinoData() {
+                CurrentTemp = double.Parse(result.Result.Split(';')[0], CultureInfo.InvariantCulture),
+                RequestedTemp = double.Parse(result.Result.Split(';')[1], CultureInfo.InvariantCulture),
+                IsCooling = result.Result.Split(';')[2] == "1"
+            };
         }
-
-        internal static double GetDesiredTemp()
+        internal static void RequestTemperature(double requestedtemp)
         {
-            var result = SendGetRequest("/arduino/digital/desired");
+            var result = SendGetRequest($"/arduino/digital/setrequestedtemp/{requestedtemp}");
             result.Wait(500);
-            return double.Parse(result.Result, CultureInfo.InvariantCulture);
-        }
-
-        internal static string GetTemps()
-        {
-            var result = SendGetRequest("/arduino/digital/temps/");
-            result.Wait(500);
-            return result.Result;
-        }
-
-        internal static string GetAllInfo()
-        {
-            var result = SendGetRequest("/arduino/digital/all/");
-            result.Wait(500);
-            return result.Result;
         }
     }
 }

@@ -1,11 +1,10 @@
 // Arduino Uno WiFi Dev Ed Library - Version: Latest 
 #include <UnoWiFiDevEd.h>
-// br3ttb-Arduino-PID-Library-5adeed5 - Version: Latest 
-#include <PID_v1.h>
 // Arduino-Temperature-Control-Library-master - Version: Latest 
 #include <DallasTemperature.h>
 // OneWire - Version: Latest 
 #include <OneWire.h>
+#include <EEPROM.h>
 
 //LED pin
 #define LED_PIN 3
@@ -18,114 +17,63 @@ OneWire oneWire(ONE_WIRE_BUS);
 // Pass our oneWire reference to Dallas Temperature. 
 DallasTemperature sensors(&oneWire);
 
-/**
-  PID Variables:
-  Setpoint = the value we want our analog input to become = desired temperature
-  Input = the value we get from the analog input = current temperature
-  Output = PWM pulsewidth
-**/
-double setpoint, input, output;
+double currentTemp, requestedTemp = 15;
 double calibration = 0;
+int cooling = 0;
+long waittimebetweenstates = 300000; //5 minutes
+long statechangedtime;
 
-bool resting = false;
-String PWM = "FALSE";
-int tempindex = 0;
-//Desired temps in degrees Celsius
-int temperatures[] = {55, 62, 72, 78};
-//resting times in minutes
-long restingTimes[] = {15, 15, 10, 0};
-
-//PID tuning parameters
-double Kp = 2, Ki = 5, Kd = 1;
-PID waterTempPid(&input, &output, &setpoint, Kp, Ki, Kd, DIRECT);
-
-//The period of our PWM signal in mS
-int period = 5000;
-unsigned long windowStartTime, restingStartTime;
-
-void setup() {
-  //Initialize PID
-  //initialize starttime
-  windowStartTime = millis();
-  //PID output between 0 and period
-  waterTempPid.SetOutputLimits(0, period);
-  //turn the PID on
-  waterTempPid.SetMode(AUTOMATIC);
-  //Start up sensors
+void setup() {  
+  Serial.begin(9600);
+  Serial.println("Initializing");
+  //Set starttime
+  statechangedtime = 0;
+  //Init sensors
   sensors.begin();
+  Serial.println("Sensors ready"); 
   //Start up wifi
   Wifi.begin();
+  Serial.println("Wifi ready"); 
   //Set output pins
   pinMode(RELAY_PIN, OUTPUT);
   pinMode(LED_PIN, OUTPUT);
+  Serial.println("Pinouts set"); 
+  //Read requested temp after restart  
+  EEPROM.get(0, requestedTemp);     
+  Serial.println("Loaded requestedTemp: "+String(requestedTemp,2)); 
   //Set timeout on wificlient lower
   Wifi.setTimeout(100);
+  Serial.println("Initialization complete");
 }
 
 //Will run continuously
 void loop() {
   //Read temperature values and let PID do it's thing
   processTemperatures();
+  controlCooling();
   //Serve api while wifi is available
   while(Wifi.available()){
     serveApi(Wifi);
   }
 }
 
-void processTemperatures(){
-  if (tempindex >= sizeof(temperatures)) {
-    //stop working, temps have been reached
-    waterTempPid.SetMode(MANUAL);
+void controlCooling(){
+  //only allow statechange after a period of time has passed
+  if(statechangedtime == 0 || statechangedtime + waittimebetweenstates < millis()){
+    Serial.println("Setting cooling: " + String(cooling));  
+    statechangedtime = millis();  
+    digitalWrite(RELAY_PIN, cooling);
   }
-  else {
-    //PID function
-    reachTemperature(temperatures[tempindex]);
-    //If temperatures are equal and we are not resting, start resting
-    if (compareTemps(input ,(double)temperatures[tempindex]) && !resting) {
-      //start timer
-      restingStartTime = millis();
-      resting = true;
-    }
-    //If our restingtime is elapsed, increment our temperature and start heating again
-    if (restingStartTime + restingTimes[tempindex] > millis()) {
-      tempindex ++;
-      resting = false;
-    }
+}
+
+void processTemperatures(){
+  sensors.requestTemperatures(); 
+  currentTemp = sensors.getTempCByIndex(0) + calibration;
+  if(currentTemp > requestedTemp){
+    cooling = 1;  
   }
 }
  
-void reachTemperature(int temp) {
-  setpoint = temp;
-  //read input value
-  sensors.requestTemperatures(); 
-  input = sensors.getTempCByIndex(0) + calibration;
-  //compute pid
-  waterTempPid.Compute();
-
-  //if the time elapsed is larger that the windowsize, we need to reset
-  if (millis() - windowStartTime > period)
-  { //time to shift the Relay Window
-    windowStartTime += period;
-  }
-
-  //write 1 if our output is lower than the time elapsed, 0 if higher => PWM signal
-  if (output < millis() - windowStartTime) {
-    digitalWrite(RELAY_PIN, HIGH);
-    digitalWrite(LED_PIN, HIGH);
-    PWM = "TRUE";
-  }
-  else {
-    digitalWrite(RELAY_PIN, LOW);
-    digitalWrite(LED_PIN, LOW);
-    PWM = "FALSE";
-  }
-}
-
-bool compareTemps(double temp1, double temp2){
-  double precision = 1;
-  return (temp1 == temp2-precision || temp1 == temp2+precision);
-}
-
 void serveApi(WifiData client){
   // read the command
   String command = client.readStringUntil('/');
@@ -139,22 +87,28 @@ void tempCommand(WifiData client){
   String value = "";
   String command = client.readStringUntil('/');
   if(command == "current"){
-    value = String(input,2);
-  }else if(command == "desired"){
-    value = String(setpoint,2);
-  }else if(command == "temps"){
-    value = String(input,2)+":"+String(setpoint,2);
-  }else if(command == "pwm"){
-    value = PWM;
-  }else if(command == "all"){
-    value = String(input,2)+":"+String(setpoint,2)+":"+PWM;
-  }else{
-      client.println("HTTP/1.1 400 Bad Request\n");
-      client.println("Invalid API Call");
-      client.print(EOL); //char terminator
-      return;
+    //value = "{\"CurrentTemp\":\""+String(currentTemp,2)+"\"}";
+    value = String(currentTemp,2)+";"+String(requestedTemp,2)+";"+String(cooling);
+    Serial.println(value);
   }
-  client.println("HTTP/1.1 200 OK\n");
-  client.println(value);
+  else if(command == "setrequestedtemp"){
+    requestedTemp = client.readStringUntil('/').toDouble();
+    statechangedtime = 0;
+    EEPROM.put(0, requestedTemp);      
+    value = String(requestedTemp, 2);
+    Serial.println("New temperature requested: "+String(requestedTemp,2)); 
+  }
+  else{
+    sendLine(client, "HTTP/1.1 400 Bad Request\n\nInvalid API Call");
+    client.print(EOL); //char terminator
+    return;
+  }
+  sendLine(client, "HTTP/1.1 200 OK\nContent-Type: application/json\n\n"+value);
   client.print(EOL); //char terminator
+}
+
+void sendLine(WifiData client, String line){
+  for(int i = 0; i<=line.length();i++){
+    client.print(line[i]);  
+  }
 }

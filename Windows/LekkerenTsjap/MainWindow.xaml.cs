@@ -21,12 +21,15 @@ namespace LekkerenTsjap
     /// </summary>
     public partial class MainWindow : MetroWindow, INotifyPropertyChanged
     {
+        private const double _circleModifier = 4.8;
+        private TimeSpan _dataInterval;
         private static string _serverFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "server");
         private DateTime startTime;
         private static List<MeasureModel> Values = new List<MeasureModel>();
         private static List<MeasureModel> GoalValues = new List<MeasureModel>();
+        private static List<MeasureModel> PwmValues = new List<MeasureModel>();
         private double _temperature;
-        private double _goal;
+        private double _goal = double.MinValue;
         private double _goalTempStartAngle;
         private double _goalTempEndAngle;
         private double _goalTempAngle;
@@ -40,6 +43,7 @@ namespace LekkerenTsjap
         private bool _saveEnabled = false;
         private string _recordText = "Start Recording";
         private string _serverAddress = "";
+        private string _recordingTimeString = "0D 00:00:00";
         private TimeSpan _recordingTime = new TimeSpan();
         private long _dataPoints = 0;
         private bool _initializing = true;
@@ -60,6 +64,7 @@ namespace LekkerenTsjap
         public MainWindow()
         {
             InitializeComponent();
+            _dataInterval = TimeSpan.FromMinutes(1);
             try
             {
                 ServerAddress = File.ReadAllText(_serverFile);
@@ -91,7 +96,7 @@ namespace LekkerenTsjap
             while (!_readWorker.CancellationPending)
             {
                 Read();
-                Thread.Sleep(50);
+                Thread.Sleep(_dataInterval);
             }
         }
 
@@ -101,7 +106,7 @@ namespace LekkerenTsjap
             set
             {
                 _temperature = value;
-                CurrentTempAngle = (value * 2.4) - 120;
+                CurrentTempAngle = (value * _circleModifier) - 120;
                 OnPropertyChanged("Temperature");
             }
         }
@@ -111,10 +116,14 @@ namespace LekkerenTsjap
             get { return _goal; }
             set
             {
+                if(_goal != value && _goal != double.MinValue)
+                {
+                    ArduinoApi.RequestTemperature(value);
+                }
                 _goal = value;
-                GoalTempAngle = value * 2.4;
-                GoalTempStartAngle = (value * 2.4) - 120;
-                GoalTempEndAngle = (value * 2.4) - 119.5;
+                GoalTempAngle = value * _circleModifier;
+                GoalTempStartAngle = (value * _circleModifier) - 120;
+                GoalTempEndAngle = (value * _circleModifier) - 119.5;
                 OnPropertyChanged("Goal");
             }
         }
@@ -128,7 +137,8 @@ namespace LekkerenTsjap
 
         public string RecordText { get => _recordText; set { _recordText = value; OnPropertyChanged("RecordText"); } }
 
-        public TimeSpan RecordingTime { get => _recordingTime; set { _recordingTime = value; OnPropertyChanged("RecordingTime"); } }
+        public TimeSpan RecordingTime { get => _recordingTime; set { _recordingTime = value; RecordingTimeString = value.ToString(@"%d") + " Days " +value.ToString(@"hh\:mm\:ss"); OnPropertyChanged("RecordingTime"); } }
+        public string RecordingTimeString { get => _recordingTimeString; set { _recordingTimeString = value; OnPropertyChanged("RecordingTimeString"); } }
 
         public bool PwmOn { get => _pwmOn; set { _pwmOn = value; OnPropertyChanged("PwmOn"); } }
 
@@ -147,10 +157,10 @@ namespace LekkerenTsjap
             try
             {
                 var now = DateTime.Now;
-                string[] info = ArduinoApi.GetAllInfo().Split(':');
-                Temperature = Math.Round(double.Parse(info[0], CultureInfo.InvariantCulture));
-                Goal = Math.Round(double.Parse(info[1], CultureInfo.InvariantCulture));
-                PwmOn = bool.Parse(info[2]);
+                var arduinoData = ArduinoApi.GetCurrentData();
+                Temperature = arduinoData.CurrentTemp;
+                Goal = arduinoData.RequestedTemp;
+                PwmOn = arduinoData.IsCooling;
                 if (Record)
                 {
                     Values.Add(new MeasureModel
@@ -165,6 +175,12 @@ namespace LekkerenTsjap
                         Value = Goal,
                         Timestamp = _setTimestamp ? (double?)Temperature : (double?)null
                     });
+                    PwmValues.Add(new MeasureModel
+                    {
+                        DateTime = now,
+                        Value = PwmOn ? 1 : 0,
+                        Timestamp = _setTimestamp ? (double?)Temperature : (double?)null
+                    }) ;
                     _setTimestamp = false;
                     DataPoints++;
                 }
@@ -214,7 +230,7 @@ namespace LekkerenTsjap
                 AddExtension = true,
                 DefaultExt = "xlsx",
                 Filter = "Excel Files (*.xlsx)|*.xlsx",
-                FileName = "Brouwdata van " + DateTime.Now.ToString("dd-MM-yyyy") + ".xlsx"
+                FileName = "Gistingsdata vanaf " + DateTime.Now.ToString("dd-MM-yyyy") + ".xlsx"
             };
             if (dialog.ShowDialog() == true)
             {
@@ -236,16 +252,18 @@ namespace LekkerenTsjap
                     worksheet.Cells["A1"].Value = "Tijd";
                     worksheet.Cells["B1"].Value = "Gemeten temperatuur";
                     worksheet.Cells["C1"].Value = "Te bereiken temperatuur";
-                    worksheet.Cells["D1"].Value = "Timestamp";
+                    worksheet.Cells["D1"].Value = "Pwm Status";
+                    worksheet.Cells["E1"].Value = "Timestamp";
                     for (int row = 0; row < Values.Count; row++)
                     {
                         worksheet.Cells["A" + (row + 2)].Value = Values[row].DateTime.ToString("HH:mm:ss");
                         worksheet.Cells["B" + (row + 2)].Value = Values[row].Value;
                         worksheet.Cells["C" + (row + 2)].Value = GoalValues[row].Value;
-                        worksheet.Cells["D" + (row + 2)].Value = Values[row].Timestamp;
+                        worksheet.Cells["D" + (row + 2)].Value = PwmValues[row].Value;
+                        worksheet.Cells["E" + (row + 2)].Value = Values[row].Timestamp;
                     }
-                    ExcelChart chart = graphworksheet.Drawings.AddChart("Brouwdata", eChartType.Line);
-                    chart.Title.Text = "Brouw Data " + DateTime.Now.ToString("dd-MM-yyyy");
+                    ExcelChart chart = graphworksheet.Drawings.AddChart("Gistingsdata", eChartType.Line);
+                    chart.Title.Text = "Gistingsdata " + DateTime.Now.ToString("dd-MM-yyyy");
                     chart.SetPosition(0, 0, 0, 0);
                     chart.SetSize(1400, 600);
                     chart.DisplayBlanksAs = eDisplayBlanksAs.Gap;
@@ -254,7 +272,7 @@ namespace LekkerenTsjap
                     var ser2 = chart.Series.Add(worksheet.Cells["C2:C" + (Values.Count + 1)], worksheet.Cells["A2:A" + (Values.Count + 1)]);
 
                     var chartType2 = chart.PlotArea.ChartTypes.Add(eChartType.XYScatter);
-                    var ser3 = chartType2.Series.Add(worksheet.Cells["D2:D" + (Values.Count + 1)], worksheet.Cells["A2:A" + (Values.Count + 1)]);
+                    var ser3 = chartType2.Series.Add(worksheet.Cells["E2:E" + (Values.Count + 1)], worksheet.Cells["A2:A" + (Values.Count + 1)]);
 
                     xlPackage.SaveAs(newFile);
                 }
